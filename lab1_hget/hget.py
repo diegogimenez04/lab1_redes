@@ -20,7 +20,6 @@ Original 2009-2010: Natalia Bidart, Daniel Moisset
 import sys
 import socket
 import optparse
-from socket import *
 
 PREFIX = "http://"
 HTTP_PORT = 80   # El puerto por convencion para HTTP,
@@ -88,19 +87,14 @@ def connect_to_server(server_name):
     ConnectionRefusedError: [Errno 111] Connection refused
     """
 
-    # Buscar direccion ip
-    # COMPLETAR ABAJO DE ESTA LINEA
-    ip_address = gethostbyname(server_name)
-    # Aqui deberian obtener la direccion ip del servidor y asignarla
-    # a ip_address
-    # DEJAR LA LINEA SIGUIENTE TAL COMO ESTA
+    # Buscamos la direccion ip
+    ip_address = socket.gethostbyname(server_name)
     sys.stderr.write("Contactando al servidor en %s...\n" % ip_address)
-    # Crear socket
-    # COMPLETAR ABAJO DE ESTA LINEA
-    s = socket(AF_INET, SOCK_STREAM)
-    # Aqui deben conectarse al puerto correcto del servidor
-    # NO MODIFICAR POR FUERA DE ESTA FUNCION
+    # Creamos el socket
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    # Nos conectamos al puerto correcto del servidor
     s.connect((ip_address, HTTP_PORT))
+    # Devolvemos el socket
     return s
 
 
